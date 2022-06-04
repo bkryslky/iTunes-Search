@@ -10,6 +10,7 @@ import UIKit
 protocol SearchDisplayLogic: AnyObject {
   func displayViewDidLoad(viewModel: Search.View.ViewModel)
   func displaySearchEntities(viewModel: Search.Entities.ViewModel)
+  func displayError(viewModel: Search.Error.ViewModel)
 }
 
 class SearchViewController: UIViewController {
@@ -118,6 +119,7 @@ class SearchViewController: UIViewController {
     // MARK: SearchDisplayLogic
 
 extension SearchViewController : SearchDisplayLogic {
+
   func displayViewDidLoad(viewModel: Search.View.ViewModel) {
    
   }
@@ -128,6 +130,13 @@ extension SearchViewController : SearchDisplayLogic {
     }
     self.isLoadingMore = false
     
+  }
+  
+  func displayError(viewModel: Search.Error.ViewModel) {
+    self.showAlert(title: LocalConstants.Keys.errorTitle,
+                   message: viewModel.message,
+                   leftButton: LocalConstants.Keys.ok,
+                   rightButton: nil) { } completionRight: { }
   }
 }
 
@@ -141,13 +150,12 @@ extension SearchViewController:UISearchBarDelegate {
         let request = Search.Entities.Request(wrapperType: WrapperType.findCase(value: self.searchSegmentedControl.selectedSegmentIndex), query: searchText)
         self.interactor?.didSearchEntities(request: request)
       }
+    } else {
+      self.searchEntities = []
+      self.searchCollectionView.reloadData()
     }
-  
+  }
 
-  }
-  func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-    self.dismiss(animated: true)
-  }
 }
     // MARK: UICollectionViewDataSource & UICollectionViewDelegate
 extension SearchViewController: UICollectionViewDataSource, UICollectionViewDelegate {

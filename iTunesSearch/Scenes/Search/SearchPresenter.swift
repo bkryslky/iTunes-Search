@@ -10,6 +10,7 @@ import UIKit
 protocol SearchPresentationLogic {
   func presentViewDidLoad(response: Search.View.Response)
   func presentSearchEntities(response: Search.Entities.Response)
+  func presentError(response: Search.Error.Response)
 }
 
 class SearchPresenter: SearchPresentationLogic {
@@ -23,5 +24,9 @@ class SearchPresenter: SearchPresentationLogic {
   func presentSearchEntities(response: Search.Entities.Response) {
     let viewModel = Search.Entities.ViewModel(entities: response.entities)
     self.viewController?.displaySearchEntities(viewModel: viewModel)
+  }
+  func presentError(response: Search.Error.Response) {
+    let viewModel = Search.Error.ViewModel(errorCode: response.errorCode, message: response.message)
+    self.viewController?.displayError(viewModel: viewModel)
   }
 }

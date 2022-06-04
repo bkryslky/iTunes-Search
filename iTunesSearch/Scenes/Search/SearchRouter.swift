@@ -19,14 +19,15 @@ protocol SearchDataPassing {
 
 class SearchRouter: NSObject, SearchRoutingLogic, SearchDataPassing {
 
-  
   weak var viewController: SearchViewController?
   var dataStore: SearchDataStore?
   func navigate(_ option: SearchRoutingLogicOption) {
     switch option {
-    case .toDetail(_):
-      // MARK: ToDo
-      ///Update here after creating Detail Module!
+    case .toDetail(let entity):
+      let destination = DetailViewController.loadFromNib()
+      var destinationDS = destination.router?.dataStore
+      destinationDS?.searchEntity = entity
+      self.viewController?.present(destination, animated: true)
       break
     }
   }
