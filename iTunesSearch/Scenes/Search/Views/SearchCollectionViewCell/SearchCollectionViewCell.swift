@@ -30,7 +30,7 @@ final class SearchCollectionViewCell: UICollectionViewCell, ViewModelType {
   }
   
   func configure(model: SearchEntity) {
-    imageView.kf.setImage(with:model.artworkUrl100?.toURL(), placeholder: UIImage(named: "placeHolderYOK"))
+    imageView.kf.setImage(with:model.artworkUrl100?.toURL(), placeholder: UIImage(named: "placeHolder"))
     trackNameLabel.text = model.trackName
     collectionNameLabel.text = model.collectionName
     dateLabel.text = model.releaseDate?.appDateFormatted().0
