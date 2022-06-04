@@ -22,6 +22,8 @@ class DetailInteractor: DetailBusinessLogic, DetailDataStore {
   
   func viewDidLoad() {
     guard let searchEntity = searchEntity else {
+      let response = Detail.Error.Response(errorCode: 404, message:"Entity not found!")
+      self.presenter?.presentError(response: response)
       return
     }
     let response = Detail.View.Response(searchEntity: searchEntity)

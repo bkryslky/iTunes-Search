@@ -9,6 +9,7 @@ import UIKit
 
 protocol DetailPresentationLogic {
   func presentViewDidLoad(response: Detail.View.Response)
+  func presentError(response: Detail.Error.Response)
 }
 
 class DetailPresenter: DetailPresentationLogic {
@@ -16,5 +17,9 @@ class DetailPresenter: DetailPresentationLogic {
   func presentViewDidLoad(response: Detail.View.Response) {
     let viewModel = Detail.View.ViewModel(searchEntity: response.searchEntity)
     viewController?.displayViewDidLoad(viewModel: viewModel)
+  }
+  func presentError(response: Detail.Error.Response) {
+    let viewModel = Detail.Error.ViewModel(errorCode: response.errorCode, message: response.message)
+    self.viewController?.displayError(viewModel: viewModel)
   }
 }

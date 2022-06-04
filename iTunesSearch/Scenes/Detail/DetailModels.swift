@@ -21,4 +21,16 @@ enum Detail {
       var searchEntity: SearchEntity
     }
   }
+  enum Error {
+    struct Request {
+    }
+    struct Response {
+      let errorCode: Int
+      let message: String
+    }
+    struct ViewModel {
+      let errorCode: Int
+      let message: String
+    }
+  }
 }
