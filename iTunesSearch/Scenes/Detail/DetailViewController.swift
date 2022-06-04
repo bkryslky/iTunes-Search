@@ -9,6 +9,7 @@ import UIKit
 
 protocol DetailDisplayLogic: AnyObject {
   func displayViewDidLoad(viewModel: Detail.View.ViewModel)
+  func displayError(viewModel: Detail.Error.ViewModel)
 }
 
 class DetailViewController: UIViewController {
@@ -23,7 +24,14 @@ class DetailViewController: UIViewController {
   //MARK: Variables
   var interactor: DetailBusinessLogic?
   var router: (NSObjectProtocol & DetailRoutingLogic & DetailDataPassing)?
-
+  struct LocalConstants {
+    struct Keys {
+      static let ok = "Okay"
+      static let errorTitle = "Something went wrong!"
+    }
+    struct UIs {
+    }
+  }
   // MARK: Object lifecycle
   
   override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -73,6 +81,13 @@ extension DetailViewController: DetailDisplayLogic {
     self.dateLabel.text = viewModel.searchEntity.releaseDate?.appDateFormatted().0
     self.priceLabel.text = "$" + (viewModel.searchEntity.collectionPrice?.toString() ?? "")
   }
-  
+  func displayError(viewModel: Detail.Error.ViewModel) {
+    self.showAlert(title: LocalConstants.Keys.errorTitle,
+                   message: viewModel.message,
+                   leftButton: LocalConstants.Keys.ok,
+                   rightButton: nil) { [weak self] in
+      self?.dismiss(animated: true)
+    } completionRight: { }
+  }
   
 }

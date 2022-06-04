@@ -54,10 +54,19 @@ extension SearchInteractor {
       IndicatorView.shared.hide()
       switch result {
       case .failure(let error):
-        print(error)
+        self?.page -= 1
+        let response = Search.Error.Response(errorCode: error.asAFError?.responseCode ?? 0, message: "An Error occured!")
+        self?.presenter?.presentError(response: response)
       case .success(let baseResponse):
         guard let entities = baseResponse.data else { return }
-        self?.presenter?.presentSearchEntities(response: Search.Entities.Response(entities: entities))
+        if entities.count == 0 {
+          self?.page -= 1
+          let response = Search.Error.Response(errorCode: 200, message: "Entities not found!")
+          self?.presenter?.presentError(response: response)
+        } else {
+          self?.presenter?.presentSearchEntities(response: Search.Entities.Response(entities: entities))
+        }
+       
       }
     }
   }
