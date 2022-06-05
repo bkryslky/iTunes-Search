@@ -28,14 +28,12 @@ class SearchInteractor: SearchBusinessLogic, SearchDataStore {
     self.wrapperType = request.wrapperType
     self.presenter?.presentViewDidLoad(response: Search.View.Response())
   }
-  
   func didSearchEntities(request: Search.Entities.Request) {
     self.page = 1
     self.wrapperType = request.wrapperType
     self.query = request.query
     self.getEntities()
   }
-  
   func didLoadMoreEntities() {
     self.page += 1
     self.getEntities()
@@ -45,28 +43,27 @@ class SearchInteractor: SearchBusinessLogic, SearchDataStore {
 extension SearchInteractor {
   private func getEntities() {
     IndicatorView.shared.show()
-    let parameters: [String : Any] = ["term": self.query,
-                                      "entity": self.wrapperType.rawValue,
-                                      "limit": self.limit * self.page
+    let parameters: [String : Any] = [ "term": self.query,
+                                       "entity": self.wrapperType.rawValue,
+                                       "limit": self.limit * self.page
     ]
-    
     worker.searchItems(parameters: parameters) { [weak self] result in
       IndicatorView.shared.hide()
       switch result {
       case .failure(let error):
         self?.page -= 1
-        let response = Search.Error.Response(errorCode: error.asAFError?.responseCode ?? 0, message: "An Error occured!")
+        let response = Search.Error.Response(errorCode: error.asAFError?.responseCode ?? 0,
+                                             message: "An Error occured!")
         self?.presenter?.presentError(response: response)
       case .success(let baseResponse):
         guard let entities = baseResponse.data else { return }
-        if entities.count == 0 {
+        if entities.isEmpty {
           self?.page -= 1
           let response = Search.Error.Response(errorCode: 200, message: "Entities not found!")
           self?.presenter?.presentError(response: response)
         } else {
           self?.presenter?.presentSearchEntities(response: Search.Entities.Response(entities: entities))
         }
-       
       }
     }
   }

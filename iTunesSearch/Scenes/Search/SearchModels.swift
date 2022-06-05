@@ -8,20 +8,17 @@
 import UIKit
 
 enum Search {
-  // MARK: Use cases
-  
+  // MARK: Use cases  
   enum View {
-    struct Request {
-      let wrapperType: WrapperType
-    }
+      struct Request {
+        let wrapperType: WrapperType
+      }
     struct Response {
 
     }
     struct ViewModel {
-    
     }
   }
-  
   enum Entities {
     struct Request {
       let wrapperType: WrapperType
@@ -34,7 +31,6 @@ enum Search {
       let entities : [SearchEntity]
     }
   }
-  
   enum Error {
     struct Request {
     }
@@ -47,5 +43,4 @@ enum Search {
       let message: String
     }
   }
-  
 }

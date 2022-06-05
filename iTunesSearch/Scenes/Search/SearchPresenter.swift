@@ -14,9 +14,7 @@ protocol SearchPresentationLogic {
 }
 
 class SearchPresenter: SearchPresentationLogic {
- 
   weak var viewController: SearchDisplayLogic?
-  
   func presentViewDidLoad(response: Search.View.Response) {
     let viewModel = Search.View.ViewModel()
     self.viewController?.displayViewDidLoad(viewModel: viewModel)

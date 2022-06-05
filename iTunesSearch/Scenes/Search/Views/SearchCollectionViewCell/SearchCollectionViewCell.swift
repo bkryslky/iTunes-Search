@@ -9,26 +9,24 @@ import UIKit
 import Kingfisher
 
 final class SearchCollectionViewCell: UICollectionViewCell, ViewModelType {
-  
   @IBOutlet weak var bgView: UIView!
   @IBOutlet weak var imageView: UIImageView!
   @IBOutlet weak var trackNameLabel: UILabel!
   @IBOutlet weak var collectionNameLabel: UILabel!
   @IBOutlet weak var dateLabel: UILabel!
   @IBOutlet weak var priceLabel: UILabel!
-  
-  
   override func awakeFromNib() {
     super.awakeFromNib()
-    
   }
-  
-  override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
+  override func preferredLayoutAttributesFitting(
+    _ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
       let targetSize = CGSize(width: layoutAttributes.size.width, height: 0)
-      layoutAttributes.frame.size = contentView.systemLayoutSizeFitting(targetSize, withHorizontalFittingPriority: .required, verticalFittingPriority: .fittingSizeLevel)
+      layoutAttributes.frame.size = contentView.systemLayoutSizeFitting(
+        targetSize,
+        withHorizontalFittingPriority: .required,
+        verticalFittingPriority: .fittingSizeLevel)
       return layoutAttributes
   }
-  
   func configure(model: SearchEntity) {
     imageView.kf.setImage(with:model.artworkUrl100?.toURL(), placeholder: UIImage(named: "placeHolder"))
     trackNameLabel.text = model.trackName

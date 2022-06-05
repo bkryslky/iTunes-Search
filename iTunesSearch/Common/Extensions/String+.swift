@@ -17,10 +17,8 @@ extension String {
     let year = components.year ?? 1976
     let month = components.month ?? 1
     let day = components.day ?? 1
-    
     return (newDateString, day, month, year)
   }
-  
   func toURL() -> URL? {
     return URL(string: self)
   }

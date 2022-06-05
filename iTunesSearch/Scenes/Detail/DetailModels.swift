@@ -9,7 +9,6 @@ import UIKit
 
 enum Detail {
   // MARK: Use cases
-  
   enum View {
     struct Request {
 

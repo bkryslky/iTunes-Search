@@ -9,9 +9,8 @@ import Foundation
 
 enum WrapperType: String, Codable {
   case movies = "movie", music = "music", apps = "software", books = "ebook"
-  
   static func findCase(value: Int) -> Self {
-    switch value{
+    switch value {
     case 0:
       return WrapperType.movies
     case 1:
