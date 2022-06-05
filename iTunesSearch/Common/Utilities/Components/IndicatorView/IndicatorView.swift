@@ -9,7 +9,6 @@ import Foundation
 import UIKit
 
 final public class IndicatorView {
-  
   // MARK: Outlets
   public static let shared = IndicatorView()
   private var blurImg = UIImageView()
