@@ -18,20 +18,17 @@ extension SearchRequestable {
     case .search: return .get
     }
   }
-  
   var path: String {
     switch self {
     case .search: return "/search"
     }
   }
-  
-  var extraParams: [String : Any]?  {
+  var extraParams: [String : Any]? {
     nil
   }
   func asFileDataRequest() throws -> Data? {
     nil
   }
-  
   func asURLRequest() throws -> URLRequest? {
     guard let url = urlComponents.url else { return nil }
     var request = URLRequest(url: url)

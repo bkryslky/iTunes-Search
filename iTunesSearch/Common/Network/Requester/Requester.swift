@@ -9,5 +9,5 @@ import Foundation
 
 protocol Requester {
   func createRequest<T: RequestableProtocol, Q: Decodable>(requestable: T,
-                                    completion: @escaping(Result<Q,APIError>) -> Void)
+                                                           completion: @escaping(Result<Q,APIError>) -> Void)
 }

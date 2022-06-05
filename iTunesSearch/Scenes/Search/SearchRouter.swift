@@ -28,7 +28,6 @@ class SearchRouter: NSObject, SearchRoutingLogic, SearchDataPassing {
       var destinationDS = destination.router?.dataStore
       destinationDS?.searchEntity = entity
       self.viewController?.present(destination, animated: true)
-      break
     }
   }
 

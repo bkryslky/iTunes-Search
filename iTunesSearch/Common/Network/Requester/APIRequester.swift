@@ -9,7 +9,9 @@ import Foundation
 
 final class APIRequester: Requester {
   static let shared: APIRequester = APIRequester()
-  func createRequest<T, Q>(requestable: T, completion: @escaping (Result<Q, APIError>) -> Void) where Q : Decodable, T : RequestableProtocol {
+  func createRequest<T, Q>(requestable: T,
+                           completion: @escaping (Result<Q, APIError>) -> Void)
+  where Q : Decodable, T : RequestableProtocol {
     do {
       let request = try requestable.asURLRequest()
       request?.perform(completionHandler: completion)
@@ -17,5 +19,4 @@ final class APIRequester: Requester {
       completion(.failure(.generalResponseError))
     }
   }
-  
 }
